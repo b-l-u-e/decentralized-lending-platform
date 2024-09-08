@@ -10,13 +10,15 @@ export default function UserAccount() {
     return (<main>
         <Router>
             <Navbar />
-            <Routes>
-                <Route index path="/" element={<Home />} />
-                <Route path ="/profile" element={<Profile />} />
-                <Route path="/credit-score" element={<CreditScore />} />
-                <Route path="/lending-pools" element={<LendingPools />} />
-                <Route path="/loan-repayments" element={<LoanRepayments />} />
-            </Routes>
+            <section className="user-account-main-body">
+                <Routes>
+                    <Route index path="/" element={<Home />} />
+                    <Route path="/profile" element={<Profile />} />
+                    <Route path="/credit-score" element={<CreditScore />} />
+                    <Route path="/lending-pools" element={<LendingPools />} />
+                    <Route path="/loan-repayments" element={<LoanRepayments />} />
+                </Routes>
+            </section>
         </Router>
     </main >
     )
