@@ -1,6 +1,8 @@
 import { Container, Box, Typography, Button } from "@mui/material";
+import { useAuth } from "../hooks/use-auth-client";
 
 export default function Login() {
+    const { account, login } = useAuth();
     return (
         <main>
             <Container component="main" maxWidth="xs">
