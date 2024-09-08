@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import LendingPoolForm from "../../components/forms/LendingPoolForm";
+import LoanRepaymentForm from "../../../components/forms/LoanRepaymentForm";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
@@ -15,45 +15,48 @@ const StyledListItem = styled(ListItem)({
   padding: "10px",
 });
 
-const LendingPools: React.FC = () => {
-  interface Pool {
+const LoanRepayments: React.FC = () => {
+  interface Loan {
     id: number;
     amount: number;
     interestRate: number;
     duration: number;
+    repaid: boolean;
   }
 
-  const [pools, setPools] = useState<Pool[]>([]);
+  const [loans, setLoans] = useState<Loan[]>([]);
 
   useEffect(() => {
-    // Fetch existing lending pools logic here
-    const fetchPools = async () => {
+    // Fetch existing loans logic here
+    const fetchLoans = async () => {
       // Placeholder data
-      const data: Pool[] = [
-        { id: 1, amount: 1000, interestRate: 5, duration: 12 },
-        { id: 2, amount: 2000, interestRate: 7, duration: 24 },
+      const data: Loan[] = [
+        { id: 1, amount: 1000, interestRate: 5, duration: 12, repaid: false },
+        { id: 2, amount: 2000, interestRate: 7, duration: 24, repaid: false },
       ];
-      setPools(data);
+      setLoans(data);
     };
 
-    fetchPools();
+    fetchLoans();
   }, []);
 
   return (
     <Container>
       <Box my={4}>
         <Typography variant="h4" component="h1" gutterBottom>
-          Lending Pools
+          Loan Repayments
         </Typography>
-        <LendingPoolForm />
+        <LoanRepaymentForm />
         <Typography variant="h5" component="h2" gutterBottom>
-          Existing Lending Pools
+          Existing Loans
         </Typography>
         <List>
-          {pools.map((pool) => (
-            <StyledListItem key={pool.id}>
+          {loans.map((loan) => (
+            <StyledListItem key={loan.id}>
               <ListItemText
-                primary={`Amount: ${pool.amount}, Interest Rate: ${pool.interestRate}%, Duration: ${pool.duration} months`}
+                primary={`Amount: ${loan.amount}, Interest Rate: ${loan.interestRate
+                  }%, Duration: ${loan.duration} months, Repaid: ${loan.repaid ? "Yes" : "No"
+                  }`}
               />
             </StyledListItem>
           ))}
@@ -63,4 +66,4 @@ const LendingPools: React.FC = () => {
   );
 };
 
-export default LendingPools;
+export default LoanRepayments;

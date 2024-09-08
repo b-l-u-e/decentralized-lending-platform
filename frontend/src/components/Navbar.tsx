@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../hooks/use-auth-client';
 
 const Root = styled('div')({
     flexGrow: 1,
@@ -31,6 +32,7 @@ const CustomButton = styled(Button)({
 });
 
 const Navbar: React.FC = () => {
+    const { logout } = useAuth();
     return (
         <Root>
             <CustomAppBar position="static">
@@ -38,9 +40,7 @@ const Navbar: React.FC = () => {
                     <Title variant="h6">
                         Decentralized Credit Platform
                     </Title>
-                    <CustomButton variant="contained">
-                        <Link to="/login">Login</Link>
-                    </CustomButton>
+                    <CustomButton variant="contained" onClick={logout}>Logout</CustomButton>
                 </Toolbar>
             </CustomAppBar>
         </Root>

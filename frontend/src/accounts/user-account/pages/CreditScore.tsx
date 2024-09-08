@@ -2,7 +2,7 @@ import React from "react";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import CreditScoreForm from "../../components/forms/CreditScoreForm";
+import CreditScoreForm from "../../../components/forms/CreditScoreForm";
 
 const CreditScore: React.FC = () => {
   return (

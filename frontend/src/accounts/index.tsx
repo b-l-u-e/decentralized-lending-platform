@@ -1,5 +1,21 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import Navbar from "../components/Navbar"
+import LendingPools from "./user-account/pages/LendingPools"
+import LoanRepayments from "./user-account/pages/LoanRepayments"
+import Home from "./user-account/pages/Home"
+import CreditScore from "./user-account/pages/CreditScore"
+
 export default function UserAccount() {
     return (<main>
-        <h1>User Account</h1>
-    </main>)
+        <Router>
+            <Navbar />
+            <Routes>
+                <Route index path="/" element={<Home />} />
+                <Route path="/credit-score" element={<CreditScore />} />
+                <Route path="/lending-pools" element={<LendingPools />} />
+                <Route path="/loan-repayments" element={<LoanRepayments />} />
+            </Routes>
+        </Router>
+    </main >
+    )
 }
