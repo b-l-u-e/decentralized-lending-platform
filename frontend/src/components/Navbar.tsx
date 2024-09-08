@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -6,6 +6,10 @@ import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../hooks/use-auth-client';
+import Avatar from '@mui/material/Avatar';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import IconButton from '@mui/material/IconButton';
 
 const Root = styled('div')({
     flexGrow: 1,
@@ -33,6 +37,16 @@ const CustomButton = styled(Button)({
 
 const Navbar: React.FC = () => {
     const { logout } = useAuth();
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
+    const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
     return (
         <Root>
             <CustomAppBar position="static">
@@ -40,7 +54,27 @@ const Navbar: React.FC = () => {
                     <Title variant="h6">
                         Decentralized Credit Platform
                     </Title>
-                    <CustomButton variant="contained" onClick={logout}>Logout</CustomButton>
+                    <IconButton onClick={handleMenu} color="inherit">
+                        <Avatar alt="Profile Avatar" src="/static/images/avatar/1.jpg" />
+                    </IconButton>
+                    <Menu
+                        anchorEl={anchorEl}
+                        anchorOrigin={{
+                            vertical: 'top',
+                            horizontal: 'right',
+                        }}
+                        keepMounted
+                        transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'right',
+                        }}
+                        open={Boolean(anchorEl)}
+                        onClose={handleClose}
+                    >
+                        <MenuItem component={Link} to="/profile" onClick={handleClose}>Profile</MenuItem>
+                        <MenuItem component={Link} to="/settings" onClick={handleClose}>Settings</MenuItem>
+                        <MenuItem onClick={() => { logout(); handleClose(); }}>Logout</MenuItem>
+                    </Menu>
                 </Toolbar>
             </CustomAppBar>
         </Root>
