@@ -26,14 +26,6 @@ const CustomAppBar = styled(AppBar)({
     padding: '0 20px', // Add padding
 });
 
-const CustomButton = styled(Button)({
-    marginLeft: 'auto', // Push the button to the right
-    backgroundColor: '#ffffff', // Change button background color
-    color: '#3f51b5', // Change button text color
-    '&:hover': {
-        backgroundColor: '#f1f1f1', // Change button hover background color
-    },
-});
 
 const Navbar: React.FC = () => {
     const { logout } = useAuth();
@@ -47,9 +39,14 @@ const Navbar: React.FC = () => {
         setAnchorEl(null);
     };
 
+
+    const handleClick = () => {
+        logout();
+        handleClose();
+    }
     return (
         <Root>
-            <CustomAppBar position="static">
+            <CustomAppBar position="sticky">
                 <Toolbar>
                     <Title variant="h6">
                         Decentralized Credit Platform
@@ -73,7 +70,7 @@ const Navbar: React.FC = () => {
                     >
                         <MenuItem component={Link} to="/profile" onClick={handleClose}>Profile</MenuItem>
                         <MenuItem component={Link} to="/settings" onClick={handleClose}>Settings</MenuItem>
-                        <MenuItem onClick={() => { logout(); handleClose(); }}>Logout</MenuItem>
+                        <MenuItem onClick={() => handleClick()}>Logout</MenuItem>
                     </Menu>
                 </Toolbar>
             </CustomAppBar>
