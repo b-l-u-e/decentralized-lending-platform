@@ -7,10 +7,11 @@ export const useAuthClient = () => {
     const [account, setAccount] = useState<string | null>(null);
     const [web3, setWeb3] = useState<Web3 | null>(null);
 
+
+    const web3Instance = new Web3(web3?.currentProvider);
     const login = async () => {
         if (window.ethereum) {
             try {
-                const web3Instance = new Web3(window.ethereum);
                 setWeb3(web3Instance);
 
                 // Request account access if needed
@@ -25,10 +26,23 @@ export const useAuthClient = () => {
         }
     };
 
-    const logout = () => {
-        setWeb3(null);
-        setAccount(null);
-        console.log('Logged out');
+    const logout = async () => {
+        if (window.ethereum) {
+            await window.ethereum.request({
+                "method": "wallet_revokePermissions",
+                "params": [
+                    {
+                        "eth_accounts": {}
+                    }
+                ]
+            }).then(() => {
+                setWeb3(null);
+                setAccount(null);
+            }).catch((e) => {
+                alert(e.message)
+            });
+        }
+
     };
 
     useEffect(() => {
