@@ -1,10 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Container, Grid, Box, Button, Divider, Typography, Paper, Card, CardContent, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import useAccount from "../../../hooks/useAccount";
 
 const Home: React.FC = () => {
-  const totalAmount = 1200;
-  const totalTransacted = 500;
   const totalDeposited = 700;
   const creditScore = 750;
   const insuranceWorth = 10000;
@@ -15,12 +14,14 @@ const Home: React.FC = () => {
     { id: 3, type: 'Credit', amount: 100, date: '2024-09-03' },
     { id: 4, type: 'Payment', amount: 400, date: '2024-09-04' }
   ];
+
+  const { accountBalance } = useAccount()
+
   return (
     <Container
       maxWidth="lg"
       sx={{ flexGrow: 1, padding: 4, minHeight: "100vh" }}
     >
-
       <Grid container spacing={5}>
         <Grid item xs={12} sm={6} md={4}>
           <Card sx={{ minWidth: 250 }}>
@@ -29,8 +30,8 @@ const Home: React.FC = () => {
                 Wallet Balance
               </Typography>
 
-              <Typography variant="h3">
-                {totalTransacted}
+              <Typography variant="h4">
+                {accountBalance}
               </Typography>
             </CardContent>
           </Card>
@@ -40,10 +41,10 @@ const Home: React.FC = () => {
           <Card sx={{ minWidth: 275 }}>
             <CardContent>
               <Typography variant="h6" component="div">
-                Wallet Balance
+                Total Deposits
               </Typography>
 
-              <Typography variant="h3">
+              <Typography variant="h4">
                 {totalDeposited}
               </Typography>
             </CardContent>
@@ -54,10 +55,10 @@ const Home: React.FC = () => {
           <Card sx={{ minWidth: 275 }}>
             <CardContent>
               <Typography variant="h6" component="div">
-                Wallet Balance
+                Total Withdrawals
               </Typography>
 
-              <Typography variant="h3">
+              <Typography variant="h4">
                 {creditScore}
               </Typography>
             </CardContent>
@@ -69,10 +70,10 @@ const Home: React.FC = () => {
           <Card sx={{ minWidth: 275 }}>
             <CardContent>
               <Typography variant="h6" component="div">
-                Wallet Balance
+                Total Insurance Coverage
               </Typography>
 
-              <Typography variant="h3">
+              <Typography variant="h4">
                 {insuranceWorth}
               </Typography>
             </CardContent>
