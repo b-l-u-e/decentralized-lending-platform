@@ -215,6 +215,7 @@ const Home: React.FC = () => {
           </Box>
         </Grid>
       </Grid>
+
     </Container>
   );
 };

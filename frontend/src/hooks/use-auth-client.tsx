@@ -17,7 +17,7 @@ export const useAuthClient = () => {
                 // Request account access if needed
                 const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
                 setAccount(accounts[0]);
-                console.log('Logged in with account:', accounts[0]);
+                //console.log('Logged in with account:', accounts[0]);
             } catch (error) {
                 console.error('Login failed:', error);
             }
