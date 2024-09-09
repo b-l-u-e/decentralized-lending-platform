@@ -1,20 +1,13 @@
-const express = require('express');
-const Web3 = require('web3');
-const app = express();
-const port = 3000;
+import { Web3 } from "web3";
 
-const web3 = new Web3('http://localhost:8545');
-const contractABI = []; // Add ABI here
-const contractAddress = '0x...'; // Add contract address here
+const web3 = new Web3("http://127.0.0.1:8545/");
 
-const contract = new web3.eth.Contract(contractABI, contractAddress);
-
-app.get('/credit-score/:address', async (req, res) => {
-    const address = req.params.address;
-    const score = await contract.methods.getCreditScore(address).call();
-    res.send({ address, score });
-});
-
-app.listen(port, () => {
-    console.log(`Server running on http://localhost:${port}`);
-});
+// Log the chain ID to the console
+web3.eth
+    .getChainId()
+    .then((result) => {
+        console.log("Chain ID: " + result);
+    })
+    .catch((error) => {
+        console.error(error);
+    });

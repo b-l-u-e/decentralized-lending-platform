@@ -1,10 +1,9 @@
-import React from 'react';
-import { Drawer, List, ListItem, ListItemText, Divider, Typography, Box } from '@mui/material';
+import { List, ListItem, ListItemText, Divider} from '@mui/material';
 import { NavLink } from 'react-router-dom';
 
 const Sidebar = () => {
     return (
-        <nav className="user-account-sidebar">
+        <nav className="w-[250px]">
             <List>
                 {/* Dashboard */}
                 <ListItem button component={NavLink} to="/  " activeClassName="active">
