@@ -1,11 +1,18 @@
 import { Web3 } from "web3";
-import { join } from "path";
+import path from "path";
 import { readFileSync, writeFileSync } from "fs";
-import abi from "./MyContractAbi.json";
+import { fileURLToPath } from "url";
 
 const web3 = new Web3("http://127.0.0.1:8545/");
 
-const bytecodePath = join(__dirname, "MyContractBytecode.bin");
+// Define __dirname manually for ES Modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const abiPath = path.resolve(__dirname, "MyContractAbi.json");
+const abi = JSON.parse(readFileSync(abiPath, "utf8"));
+
+const bytecodePath = path.resolve(__dirname, "MyContractBytecode.bin");
 const bytecode = readFileSync(bytecodePath, "utf8");
 
 
@@ -35,7 +42,7 @@ async function deploy() {
         });
         console.log("Contract deployed at address: " + tx.options.address);
 
-        const deployedAddressPath = join(__dirname, "MyContractAddress.txt");
+        const deployedAddressPath = path.join(__dirname, "MyContractAddress.txt");
         writeFileSync(deployedAddressPath, tx.options.address);
     } catch (error) {
         console.error(error);

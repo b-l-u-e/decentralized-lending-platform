@@ -7,6 +7,7 @@ import CreditScore from "./user-account/pages/CreditScore"
 import Profile from "./user-account/pages/Profile"
 import Sidebar from "../components/ui/user-account-sidebar"
 import TransferTokens from "./user-account/pages/TransferAssets"
+import MyContracts from "./user-account/pages/Contracts"
 
 export default function UserAccount() {
     return (<main className="h-[100vh]">
@@ -24,6 +25,7 @@ export default function UserAccount() {
                         <Route path="/lending-pools" element={<LendingPools />} />
                         <Route path="/loan-repayments" element={<LoanRepayments />} />
                         <Route path="/transfer" element={<TransferTokens />} />
+                        <Route path="/my-contracts" element={<MyContracts />} />
                     </Routes>
                 </div>
             </section>
