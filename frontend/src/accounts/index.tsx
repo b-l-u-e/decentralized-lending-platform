@@ -9,6 +9,7 @@ import Sidebar from "../components/ui/user-account-sidebar"
 import TransferTokens from "./user-account/pages/TransferAssets"
 import MyContracts from "./user-account/pages/Contracts"
 import AskAi from "./user-account/pages/AskAi"
+import EditProfile from "./user-account/pages/EditProfile";
 
 export default function UserAccount() {
     return (<main className="h-[100vh]">
@@ -21,7 +22,10 @@ export default function UserAccount() {
                 <div className="overflow-y-auto h-[100vh] w-full">
                     <Routes>
                         <Route path="/" element={<Home />} />
-                        <Route path="/profile" element={<Profile />} />
+                        <Route path="/profile" >
+                <Route index element={<Profile />} />
+                <Route path="edit-profile" element={<EditProfile />} />
+              </Route>
                         <Route path="/credit-score" element={<CreditScore />} />
                         <Route path="/lending-pools" element={<LendingPools />} />
                         <Route path="/loan-repayments" element={<LoanRepayments />} />
