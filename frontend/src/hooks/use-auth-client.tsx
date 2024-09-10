@@ -71,7 +71,6 @@ export const useAuthClient = () => {
     checkIfLoggedIn();
   }, []);
 
-
   return {
     account,
     web3,
