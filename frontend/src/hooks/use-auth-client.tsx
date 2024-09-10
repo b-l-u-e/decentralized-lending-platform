@@ -4,8 +4,8 @@ import Web3 from "web3";
 const AuthContext = createContext({
   account: null,
   web3: null,
-  login: async () => {},
-  logout: async () => {},
+  login: async () => { },
+  logout: async () => { },
 });
 
 export const useAuthClient = () => {
@@ -79,8 +79,7 @@ export const useAuthClient = () => {
     profile,
     setProfile,
   };
-};
-
+}
 export const AuthProvider = ({ children }) => {
   const auth = useAuthClient();
 
