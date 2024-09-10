@@ -26,7 +26,9 @@ app.get("/api/contractAbi", (req, res) => {
 app.get('/api/contractBytecode', (req, res) => {
     const bytecodePath = path.resolve(__dirname, 'MyContractBytecode.bin');
     const bytecode = readFileSync(bytecodePath, 'utf8');
-    res.json({ bytecode });
+    const paddingLength = 64 - ((bytecode.length - 2) % 64);
+    const modByteCode = bytecode.padEnd(bytecode.length + paddingLength, "0");
+    res.json({ modByteCode })
 });
 
 app.get('/api/contractAddress', (req, res) => {
