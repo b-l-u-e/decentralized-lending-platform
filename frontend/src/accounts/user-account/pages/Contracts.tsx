@@ -1,17 +1,17 @@
-import { Button, Typography } from "@mui/material";
-import { walletPlugin, zksyncPlugin } from "../../../plugins/web3";
+import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
+import { walletPlugin, web3, zksyncPlugin } from "../../../plugins/web3";
 import axios from "axios"
 import { useEffect, useState } from "react";
-import Web3, { Contract, ContractAbi, Bytes } from "web3";
+import { Contract, ContractAbi } from "web3";
 import { ContractFactory } from "web3-plugin-zksync";
 
-const web3 = new Web3("http://127.0.0.1:8545/");
+//const web3 = new Web3("http://127.0.0.1:8545/");
 export default function MyContracts() {
 
     const [contractAddress, setContractAddress] = useState("");
     const [contractAbi, setAbi] = useState<ContractAbi>([]);
     const [contractBytecode, setCode] = useState("");
-
+    const [contractAddresses, setAddresses] = useState({});
     const getContractAddress = async () => {
         try {
             const response = await axios.get("http://localhost:4000/api/contractAddress");
@@ -31,49 +31,36 @@ export default function MyContracts() {
     const getContractBytecode = async () => {
         try {
             const response = await axios.get("http://localhost:4000/api/contractBytecode");
-            setCode(response.data.bytecode)
+            setCode(response.data.modByteCode)
         } catch (e) {
             console.log(e)
         }
+    }
+
+    const getAddresses = async () => {
+        zksyncPlugin.ContractsAddresses.then((res) => {
+            setAddresses(res)
+        })
     }
 
     useEffect(() => {
         getContractAbi()
         getContractAddress()
         getContractBytecode()
+        getAddresses()
     }, [])
 
+
+
     const deployContract = async () => {
-        try {
-            const accounts = await web3.eth.getAccounts();
-            const defaultAccount = accounts[0];
+        const contractFactory = new ContractFactory(
+            contractAbi,
+            contractBytecode,
+            walletPlugin,
+        );
 
-            //const myContract = new web3.eth.Contract(contractAbi);
-            //Deploy the contract
-            /*const deployedContract = await myContract.deploy({
-                data: contractBytecode,
-                arguments: []
-            }).send({
-                from: defaultAccount,
-                gas: "1500000",
-                gasPrice: "2000000000"
-            })
-
-            console.log(deployedContract);*/
-            const contractFactory: ContractFactory<ContractAbi> = new ContractFactory(
-                contractAbi,
-                contractBytecode,
-                walletPlugin
-            )
-
-            const contract: Contract<ContractAbi> = await contractFactory.deploy([64], {
-                customData: { salt: "salt" },
-            });
-
-            console.log(contract)
-        } catch (e) {
-            console.log(e)
-        }
+        const contract: Contract<ContractAbi> = await contractFactory.deploy([24]);
+        console.log(contract);
     }
 
     const testContract = async () => {
@@ -105,7 +92,6 @@ export default function MyContracts() {
         }
     }
 
-
     return <main className="p-2.5 space-y-2.5">
 
         <div className="flex items-center gap-5">
@@ -132,6 +118,25 @@ export default function MyContracts() {
                 Test Contract
             </Button>
         </Typography>
+
+        <TableContainer component={Paper}>
+            <Table>
+                <TableHead>
+                    <TableRow>
+                        <TableCell>Address Name</TableCell>
+                        <TableCell>Address</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {Object.entries(contractAddresses).map((address) => (
+                        <TableRow>
+                            <TableCell>{address[0]}</TableCell>
+                            <TableCell>{address[1]}</TableCell>
+                        </TableRow>
+                    ))}
+                </TableBody>
+            </Table>
+        </TableContainer>
 
 
     </main>

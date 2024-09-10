@@ -19,6 +19,12 @@ export const useAuthClient = () => {
       try {
         setWeb3(web3Instance);
 
+    const web3Instance = new Web3("https://rpc.sepolia.org");
+    const login = async () => {
+        if (window.ethereum) {
+            try {
+                setWeb3(web3Instance);
+              
         // Request account access if needed
         const accounts = await window.ethereum.request({
           method: "eth_requestAccounts",
