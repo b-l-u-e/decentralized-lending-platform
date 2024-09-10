@@ -14,8 +14,8 @@ const Profile: React.FC = () => {
                     Profile Details
                 </Typography>
                 <Typography variant="h6" component="p" gutterBottom>
-                    Wallet Address:
-                </Typography>   
+                    Wallet Address
+                </Typography>
                 <Typography variant="body1" component="p" gutterBottom>
                     {account || 'Not connected'}
                 </Typography>

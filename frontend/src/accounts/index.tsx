@@ -8,6 +8,7 @@ import Profile from "./user-account/pages/Profile"
 import Sidebar from "../components/ui/user-account-sidebar"
 import TransferTokens from "./user-account/pages/TransferAssets"
 import MyContracts from "./user-account/pages/Contracts"
+import AskAi from "./user-account/pages/AskAi"
 
 export default function UserAccount() {
     return (<main className="h-[100vh]">
@@ -26,6 +27,7 @@ export default function UserAccount() {
                         <Route path="/loan-repayments" element={<LoanRepayments />} />
                         <Route path="/transfer" element={<TransferTokens />} />
                         <Route path="/my-contracts" element={<MyContracts />} />
+                        <Route path="/ask-ai" element={<AskAi />} />
                     </Routes>
                 </div>
             </section>
