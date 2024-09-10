@@ -1,5 +1,5 @@
 import { TextField, Button } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import { Models, ORAPlugin, Chain } from "@ora-io/web3-plugin-ora";
 import { Web3 } from "web3";
 import useAccount from "../../../hooks/useAccount";
@@ -11,6 +11,7 @@ web3.eth.accounts.wallet.add(`0x${import.meta.env.VITE_METAMASK_PRIVATE_KEY}`);
 
 export default function AskAi() {
     const { account } = useAccount()
+    const [response, setResponse] = useState('')
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         const PROMPT: string = e.currentTarget[0].value;
@@ -27,6 +28,7 @@ export default function AskAi() {
                     console.log('Fee: ' + fee);
                     console.log(aiResult)
                     console.log(response)
+                    setResponse(result)
                 }, 30000);
 
             }
@@ -37,8 +39,8 @@ export default function AskAi() {
     return (
         <main className="grid place-items-center h-screen">
             <form className="container space-y-5" onSubmit={handleSubmit}>
-                <div className="w-full h-[700px] bg-slate-100">
-
+                <div className="w-full h-[700px] bg-slate-100 p-5">
+                    <MessageCard message="Hello" />
                 </div>
                 <div className="flex items-center gap-5">
                     <TextField id="prompt" label="Prompt" variant="outlined" name="prompt" className="w-full" />
@@ -57,5 +59,14 @@ export default function AskAi() {
                 </div>
             </form>
         </main>
+    )
+}
+
+
+function MessageCard({ message }: { message: string }) {
+    return (
+        <div className="p-5 bg-white rounded-lg">
+            {message}
+        </div>
     )
 }
