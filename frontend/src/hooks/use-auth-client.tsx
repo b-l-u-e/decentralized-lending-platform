@@ -13,18 +13,13 @@ export const useAuthClient = () => {
   const [web3, setWeb3] = useState<Web3 | null>(null);
   const [profile, setProfile] = useState<any>(null);
 
-  const web3Instance = new Web3(web3?.currentProvider);
+  const web3Instance = new Web3("https://rpc.sepolia.org");
+
   const login = async () => {
     if (window.ethereum) {
       try {
         setWeb3(web3Instance);
 
-    const web3Instance = new Web3("https://rpc.sepolia.org");
-    const login = async () => {
-        if (window.ethereum) {
-            try {
-                setWeb3(web3Instance);
-              
         // Request account access if needed
         const accounts = await window.ethereum.request({
           method: "eth_requestAccounts",
@@ -76,7 +71,6 @@ export const useAuthClient = () => {
     checkIfLoggedIn();
   }, []);
 
-  
   return {
     account,
     web3,
