@@ -4,12 +4,12 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from "../../../hooks/use-auth-client";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Grid from '@mui/material/Grid';
 import Divider from '@mui/material/Divider';
+import { useAuth } from '../../../hooks/use-auth-client';
 
 const Profile: React.FC = () => {
     const { account, profile } = useAuth();

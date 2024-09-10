@@ -4,8 +4,8 @@ import Web3 from "web3";
 const AuthContext = createContext({
   account: null,
   web3: null,
-  login: async () => {},
-  logout: async () => {},
+  login: async () => { },
+  logout: async () => { },
 });
 
 export const useAuthClient = () => {
@@ -13,18 +13,13 @@ export const useAuthClient = () => {
   const [web3, setWeb3] = useState<Web3 | null>(null);
   const [profile, setProfile] = useState<any>(null);
 
-  const web3Instance = new Web3(web3?.currentProvider);
+  const web3Instance = new Web3("https://rpc.sepolia.org");
+
   const login = async () => {
     if (window.ethereum) {
       try {
         setWeb3(web3Instance);
 
-    const web3Instance = new Web3("https://rpc.sepolia.org");
-    const login = async () => {
-        if (window.ethereum) {
-            try {
-                setWeb3(web3Instance);
-              
         // Request account access if needed
         const accounts = await window.ethereum.request({
           method: "eth_requestAccounts",
@@ -76,7 +71,7 @@ export const useAuthClient = () => {
     checkIfLoggedIn();
   }, []);
 
-  
+
   return {
     account,
     web3,
@@ -85,8 +80,7 @@ export const useAuthClient = () => {
     profile,
     setProfile,
   };
-};
-
+}
 export const AuthProvider = ({ children }) => {
   const auth = useAuthClient();
 
