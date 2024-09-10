@@ -8,7 +8,7 @@ export const useAuthClient = () => {
     const [web3, setWeb3] = useState<Web3 | null>(null);
 
 
-    const web3Instance = new Web3(web3?.currentProvider);
+    const web3Instance = new Web3("https://rpc.sepolia.org");
     const login = async () => {
         if (window.ethereum) {
             try {

@@ -29,7 +29,8 @@ const useAccount = () => {
 
     return {
         accountBalance,
-        error
+        error,
+        account
     };
 };
 
