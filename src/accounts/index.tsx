@@ -12,10 +12,22 @@ import EditProfile from "./user-account/pages/EditProfile";
 import Loans from "./user-account/pages/Loans";
 import LoanForm from "./user-account/pages/LoanForm";
 import Settings from "./user-account/pages/Settings";
+import { useState, useEffect } from "react";
+import DeployContractPrompt from "../components/deploy-contract-prompt";
 
 export default function UserAccount() {
+  const [showDeployPrompt, setShowDeployPrompt] = useState(false);
+  const contractAddress: string | null = localStorage.getItem("deployedContractAddress");
+
+  useEffect(() => {
+    if (contractAddress === null) {
+      setShowDeployPrompt(true);
+    } else {
+      setShowDeployPrompt(false);
+    }
+  }, [contractAddress]);
   return (
-    <main className="h-[100vh]">
+    <main className="h-[100vh] relative">
       <Router>
         <header className="sticky top-0 z-50">
           <Navbar />
@@ -46,6 +58,16 @@ export default function UserAccount() {
             </Routes>
           </div>
         </section>
+
+        {showDeployPrompt && (
+          <DeployContractPrompt
+            onClose={() => setShowDeployPrompt(false)}
+            onDeploy={() => {
+              // Handle contract deployment
+              setShowDeployPrompt(false);
+            }}
+          />
+        )}
       </Router>
     </main>
   );

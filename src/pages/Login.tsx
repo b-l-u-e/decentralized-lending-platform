@@ -7,17 +7,18 @@ export default function Login() {
   return (
     <main className="h-screen w-full flex">
       <section className="bg-gray-100 w-full xl:w-1/2 h-full grid place-items-center">
-        <div className="grid place-items-center space-y-5">
+        <div className="grid place-items-center space-y-8">
           <Typography
             component="h1"
             variant="h2"
-            className="flex items-center "
+            className="flex items-center flex-col "
           >
             <img
               src="/images/chainsafe_logo.png"
               className="w-20 p-2.5 rounded-full"
             />
-            <p className="text-black font-bold">Swift</p>
+            <p className="text-black font-bold">Welcome to Swift</p>
+            <p className="text-3xl text-slate-500"><small>Your Trusted Lending Partner</small></p>
           </Typography>
           <div className="bg-white w-fit grid place-items-center p-5 rounded-md shadow-md">
             <Container component="div" maxWidth="sm">

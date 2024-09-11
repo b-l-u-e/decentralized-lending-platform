@@ -4,7 +4,6 @@ import {
     types,
     Web3ZKsyncL2,
     ZKsyncPlugin,
-    ZKsyncWallet,
 } from "web3-plugin-zksync";
 
 const web3 = new Web3("https://ethereum-sepolia-rpc.publicnode.com");
@@ -16,7 +15,6 @@ web3.registerPlugin(new ZKsyncPlugin(Web3ZKsyncL2.initWithDefaultProvider(types.
 
 const zksyncPlugin: ZKsyncPlugin = web3.ZKsync;
 const chainLinkPlugin = web3.chainlink;
-const walletPlugin: ZKsyncWallet = new zksyncPlugin.Wallet(import.meta.env.VITE_METAMASK_PRIVATE_KEY!);
 
 
 
@@ -24,5 +22,4 @@ export {
     web3,
     zksyncPlugin,
     chainLinkPlugin,
-    walletPlugin
 };

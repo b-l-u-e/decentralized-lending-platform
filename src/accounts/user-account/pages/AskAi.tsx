@@ -4,19 +4,21 @@ import { Models, ORAPlugin, Chain } from "@ora-io/web3-plugin-ora";
 import { Web3 } from "web3";
 import useAccount from "../../../hooks/useAccount";
 
-// Initialize RPC and plugin
-const web3 = new Web3("https://1rpc.io/sepolia");
-web3.registerPlugin(new ORAPlugin(Chain.SEPOLIA));
-web3.eth.accounts.wallet.add(import.meta.env.VITE_METAMASK_PRIVATE_KEY);
 
 export default function AskAi() {
   const { account } = useAccount();
   const [response, setResponse] = useState("");
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const PROMPT: string = e.currentTarget[0].value;
 
     try {
+      // Initialize RPC and plugin
+      const web3 = new Web3("https://1rpc.io/sepolia");
+      web3.registerPlugin(new ORAPlugin(Chain.SEPOLIA));
+      web3.eth.accounts.wallet.add("PRIVATE_KEY");
+
       if (account) {
         const fee = await web3.ora.estimateFee(Models.LLAMA2);
 

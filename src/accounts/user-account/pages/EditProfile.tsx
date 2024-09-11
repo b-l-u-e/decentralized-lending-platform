@@ -15,6 +15,8 @@ const EditProfile: React.FC = () => {
   const { profile, ensName, setEnsName } = useAuth();
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
+  const [privateKey, setPrivateKey] = useState("");
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,11 +27,14 @@ const EditProfile: React.FC = () => {
     }
   }, [profile]);
 
+
+  const handlePrivateKeyChange = (e) => {
+    setPrivateKey(`0x${e.target.value}`)
+  }
   const handleGenerateEnsName = () => {
     //const randomNumber = Math.floor(Math.random() * 10000); // Generate a random number between 0 and 9999
-    const generatedEnsName = `${firstName.toLowerCase()}${
-      lastName ? `${lastName.toLowerCase()}` : ""
-    }`;
+    const generatedEnsName = `${firstName.toLowerCase()}${lastName ? `${lastName.toLowerCase()}` : ""
+      }`;
     setEnsName(generatedEnsName);
   };
 
@@ -39,8 +44,11 @@ const EditProfile: React.FC = () => {
       const web3 = new Web3("https://ethereum-sepolia-rpc.publicnode.com");
       web3.registerPlugin(new EnsPlugin(Chain.Sepolia));
 
-      const privateKey =
-        "0xf6ec2f8a022aa21ab6cf976fcc37a51e83be6f9fde0c2780b94b706de6d82463";
+      if (privateKey === "") {
+        alert("You need to enter your MetaMask private key to continue generating your ENS Name")
+        return;
+      }
+
       const wallet = web3.eth.wallet.add(privateKey);
 
       if (ensName && wallet[0].address) {
@@ -54,7 +62,7 @@ const EditProfile: React.FC = () => {
           fuses: 1,
         };
 
-        toast.loading(`Committing ${ensName}.eth. Please be patient`, {
+        toast.info(`Committing ${ensName}.eth. Please be patient`, {
           theme: "colored",
         });
         const res = await web3.ens.commit(request);
@@ -65,7 +73,7 @@ const EditProfile: React.FC = () => {
           }
         );
 
-        toast.loading(`Registering ${ensName}.eth. Please be patient`, {
+        toast.info(`Registering ${ensName}.eth. Please be patient`, {
           theme: "colored",
         });
         setTimeout(async () => {
@@ -74,7 +82,6 @@ const EditProfile: React.FC = () => {
             `Successfully registered ${ensName}.eth` + result.transactionHash,
             {
               theme: "colored",
-              autoClose: false,
             }
           );
           //set the profile information using the ensName informtion
@@ -83,6 +90,10 @@ const EditProfile: React.FC = () => {
             JSON.stringify({ firstName, lastName, ensName })
           );
         }, 120000);
+
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000)
       }
     } catch (e) {
       toast.error(e.message);
@@ -128,29 +139,39 @@ const EditProfile: React.FC = () => {
             onChange={(e) => setLastName(e.target.value)}
             margin="normal"
           />
-          <Box display="flex" alignItems="center" margin="normal" gap="20px">
-            <div className="flex items-end gap-1 w-full">
-              <TextField
-                label="ENS Name"
-                variant="outlined"
-                fullWidth
-                value={ensName}
-                onChange={(e) => setEnsName(e.target.value)}
-                margin="normal"
-              />
-              <span className="text-slate-500">.eth</span>
-            </div>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleSetAndResolveEnsName}
-              sx={{ width: "200px", paddingY: "15px", marginTop: "8px" }}
-              disabled={ensName === ""}
-            >
-              Generate ENS
-            </Button>
-          </Box>
-
+          <div>
+            <Box display="flex" alignItems="center" margin="normal" gap="20px">
+              <div className="flex items-end gap-1 w-full">
+                <TextField
+                  label="ENS Name"
+                  variant="outlined"
+                  fullWidth
+                  value={ensName}
+                  onChange={(e) => setEnsName(e.target.value)}
+                  margin="normal"
+                />
+                <span className="text-slate-500">.eth</span>
+              </div>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleSetAndResolveEnsName}
+                sx={{ width: "200px", paddingY: "15px", marginTop: "8px" }}
+                disabled={ensName === ""}
+              >
+                Generate ENS
+              </Button>
+            </Box>
+            <small><p>Your ENS Name is a <strong>Readable </strong> format of your wallet address eliminating the need to use the long format giving a better experience in using your wallet e.g. <code>johndoe.eth</code></p></small>
+          </div>
+          <TextField
+            label="Private Key"
+            variant="outlined"
+            fullWidth
+            value={privateKey}
+            onChange={handlePrivateKeyChange}
+            margin="normal"
+          />
           <Button
             variant="contained"
             type="submit"
