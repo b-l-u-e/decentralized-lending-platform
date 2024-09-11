@@ -92,7 +92,7 @@ const EditProfile: React.FC = () => {
         }, 120000);
 
         setTimeout(() => {
-          window.location.reload();
+          navigate("/profile")
         }, 1000)
       }
     } catch (e) {
@@ -108,6 +108,7 @@ const EditProfile: React.FC = () => {
 
   const handleSave = (e) => {
     e.preventDefault();
+    localStorage.removeItem("profile")
     localStorage.setItem(
       "profile",
       JSON.stringify({ firstName, lastName, ensName })

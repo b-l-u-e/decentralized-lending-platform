@@ -6,7 +6,7 @@ const AuthContext = createContext();
 export const useAuthClient = () => {
   const [account, setAccount] = useState<string | null>(null);
   const [web3, setWeb3] = useState<Web3 | null>(null);
-  const [profile, setProfile] = useState<any>(null);
+  const [profile, setProfile] = useState(null);
   const [ensName, setEnsName] = useState("");
   const web3Instance = new Web3("https://rpc.sepolia.org");
 
