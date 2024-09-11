@@ -1,8 +1,12 @@
-import React, { useState } from "react";
-import { TextField, Button, Box, Typography, CircularProgress } from "@mui/material";
-import { ethers } from "ethers";
+import { useState } from "react";
+import {
+  TextField,
+  Button,
+  Box,
+  Typography,
+  CircularProgress,
+} from "@mui/material";
 import Web3 from "web3";
-import { ZkSyncPlugin } from "@chainsafe/web3-plugin-zksync";
 import { useAuth } from "../../hooks/use-auth-client";
 
 function TokenTransferForm() {
@@ -45,14 +49,18 @@ function TokenTransferForm() {
       setAmount("");
     } catch (error) {
       console.error("Transfer failed:", error);
-      setError("Transfer failed. Please check the recipient address and amount.");
+      setError(
+        "Transfer failed. Please check the recipient address and amount."
+      );
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <Box sx={{ maxWidth: 500, margin: "auto", padding: 3, textAlign: "center" }}>
+    <Box
+      sx={{ maxWidth: 500, margin: "auto", padding: 3, textAlign: "center" }}
+    >
       <Typography variant="h4" sx={{ marginBottom: 2 }}>
         Transfer Tokens
       </Typography>
