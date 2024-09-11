@@ -29,7 +29,7 @@ const Loans: React.FC = () => {
   const navigate = useNavigate();
   const [loans, setLoans] = useState<Loan[]>([]);
   const handleApplyForLoan = () => {
-    navigate("loan-form");
+    navigate("apply");
   };
 
   const web3 = new Web3("https://ethereum-sepolia-rpc.publicnode.com");

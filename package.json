@@ -6,7 +6,8 @@
   "homepage": ".",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b --force && vite build",
+    "build:ignore-errors": "tsc --noEmit --skipLibCheck && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
