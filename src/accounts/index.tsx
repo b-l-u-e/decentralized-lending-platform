@@ -7,7 +7,6 @@ import CreditScore from "./user-account/pages/CreditScore";
 import Profile from "./user-account/pages/Profile";
 import Sidebar from "../components/ui/user-account-sidebar";
 import TransferTokens from "./user-account/pages/TransferAssets";
-import MyContracts from "./user-account/pages/Contracts";
 import AskAi from "./user-account/pages/AskAi";
 import EditProfile from "./user-account/pages/EditProfile";
 import Loans from "./user-account/pages/Loans";
@@ -36,11 +35,10 @@ export default function UserAccount() {
               <Route path="/lending-pools" element={<LendingPools />} />
               <Route path="/loans">
                 <Route index element={<Loans />} />
-                <Route path="loan-form" element={<LoanForm />} />
+                <Route path="apply" element={<LoanForm />} />
                 <Route path="loan-repayments" element={<LoanRepayments />} />
               </Route>
               <Route path="/transfer" element={<TransferTokens />} />
-              <Route path="/my-contracts" element={<MyContracts />} />
               <Route path="/ask-ai" element={<AskAi />} />
               <Route path="/smart-contracts">
                 <Route index element={<Settings />} />

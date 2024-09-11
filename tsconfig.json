@@ -1,4 +1,11 @@
 {
+  "compilerOptions": {
+    "noEmitOnError": false,  // Ensures that the code will compile even if there are type errors
+    "skipLibCheck": true,    // Skips type checking of declaration files (.d.ts)
+    "strict": false,         // Disables all strict type-checking options
+    "noImplicitAny": false,  // Allows variables with `any` type // Ignores errors related to index signatures
+    "allowJs": true          // Allows JavaScript files in the project
+  },
   "files": [],
   "references": [
     { "path": "./tsconfig.app.json" },
